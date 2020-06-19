@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import 'react-notifications/lib/notifications.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { NotificationContainer } from 'react-notifications';
+// Komponente
+import Header from './komponenti/Header';
+import Dashboard from './komponenti/admin/Dashboard';
+
+// komponente viseg reda
+import {AdminskaRuta} from './ProveraAutentikacije/adminskaRuta'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Header />
+      <div className="set-overflow-y">
+        <Switch>
+          <Redirect exact from="/" to="dashboard" />
+          <AdminskaRuta path="/dashboard" component={Dashboard}/>
+      </Switch>
+      <NotificationContainer/>
+      </div>
+    </React.Fragment>
   );
 }
 
