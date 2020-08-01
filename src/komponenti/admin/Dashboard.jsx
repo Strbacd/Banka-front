@@ -6,58 +6,36 @@ import { faUsers, faAddressBook, faDollarSign, faPlus, faEuroSign, faList} from 
 
 // Adminske Akcije
 import PrikaziSveKorisnike from "./Korisnici/PrikaziSveKorisnike";
-import PrikaziSveDevizneRacune from "./DevizniRacuni/PrikaziSveDevizneRacune"
+import PrikaziSveRacune from "./Racuni/PrikaziSveRacune"
 import PrikaziSveValute from "./Valute/PrikaziSveValute"
-import NovDevizniRacun from "./DevizniRacuni/NovDevizniRacun";
+import NovRacun from "./Racuni/NovRacun";
 import NovKorisnik from "./Korisnici/NovKorisnik";
 import NovaValuta from "./Valute/NovaValuta"
 import IzmenaKorisnika from "./Korisnici/IzmenaKorisnika";
 
+// Korisnicke Akcije
+import NovoPlacanje from "../user/NovoPlacanje";
+
 // komponente viseg reda
 import {AdminskaRuta} from '../../ProveraAutentikacije/adminskaRuta';
+import {korisnickaRuta} from '../../ProveraAutentikacije/korisnickaRuta';
+import {proveraRole} from '../pomocni fajlovi/proveraRole';
 
 class Dashboard extends React.Component {
     render() {
         return (
             <Row className="justify-content-center no-gutters">
-                <Col lg={2} className="dashboard-navigation bg-dark">
-                    <Row className="justify-content-center mt-2">
-                        <span className="fa-2x text-white"><FontAwesomeIcon className="text-white mr-2 fa-1x" icon={faUsers}/>Korisnici</span>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/SviKorisnici'><FontAwesomeIcon className='text-primary mr-1' icon={faAddressBook}/>Lista korisnika</NavLink>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/NovKorisnik'><FontAwesomeIcon className='text-primary mr-1' icon={faPlus}/>Dodaj korisnika</NavLink>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <span className="fa-2x text-white"><FontAwesomeIcon className="text-white mr-2 fa-1x" icon={faUsers}/>Racuni</span>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/SviDevizniRacuni'><FontAwesomeIcon className='text-primary mr-1' icon={faDollarSign}/>Svi Devizni Racuni</NavLink>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/NovDevizniRacun'><FontAwesomeIcon className='text-primary mr-1' icon={faPlus}/>Dodaj Racun</NavLink>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <span className="fa-2x text-white"><FontAwesomeIcon className="text-white mr-2 fa-1x" icon={faEuroSign}/>Valute</span>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/SveValute'><FontAwesomeIcon className='text-primary mr-1' icon={faEuroSign}/>Lista Valuta</NavLink>
-                    </Row>
-                    <Row className="justify-content-center mt-2">
-                        <NavLink activeClassName="active-link" to='/dashboard/NovaValuta'><FontAwesomeIcon className='text-primary mr-1' icon={faList}/>Dodaj Valutu</NavLink>
-                    </Row>
-                </Col>
+                {proveraRole()}
                 <Col className="pt-2 app-content-main">
                     <Switch>
                         <AdminskaRuta path="/dashboard/SviKorisnici" component={PrikaziSveKorisnike}></AdminskaRuta>
-                        <AdminskaRuta path="/dashboard/SviDevizniRacuni" component={PrikaziSveDevizneRacune}></AdminskaRuta>
-                        <AdminskaRuta path="/dashboard/NovDevizniRacun" component={NovDevizniRacun}></AdminskaRuta>
+                        <AdminskaRuta path="/dashboard/SviRacuni" component={PrikaziSveRacune}></AdminskaRuta>
+                        <AdminskaRuta path="/dashboard/NovRacun" component={NovRacun}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/NovKorisnik" component={NovKorisnik}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/izmenakorisnika" component={IzmenaKorisnika}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/SveValute" component={PrikaziSveValute}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/NovaValuta" component={NovaValuta}></AdminskaRuta>
+                        <korisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></korisnickaRuta>
                     </Switch>
                 </Col>
             </Row>

@@ -11,6 +11,7 @@ import Dashboard from './komponenti/admin/Dashboard';
 
 // komponente viseg reda
 import {AdminskaRuta} from './ProveraAutentikacije/adminskaRuta'
+import { korisnickaRuta } from './ProveraAutentikacije/korisnickaRuta';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
       <div className="set-overflow-y">
         <Switch>
           <Redirect exact from="/" to="dashboard" />
-          <AdminskaRuta path="/dashboard" component={Dashboard}/>
+          <Route path="/dashboard" component={Dashboard}/>
       </Switch>
       <NotificationContainer/>
       </div>

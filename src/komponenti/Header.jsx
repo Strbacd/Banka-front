@@ -10,7 +10,7 @@ class Header extends React.Component {
         super(props);
         this.state = {
             username: '',
-            submitter: false
+            submitted: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

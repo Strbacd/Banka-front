@@ -1,12 +1,44 @@
-export const isAdmin = () => {
+export const getRole = () => {
     const token = localStorage.getItem('jwt');
-    
-    if(!token){
+
+    if(!token) {
         return false;
     }
-    
+
     var jwtDecoder = require('jwt-decode');
     const decodedToken = jwtDecoder(token);
 
-    return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] ? true : false;
+    let role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+    return role;
+}
+
+export const isAdmin = () => {
+
+    return getRole() === "admin";
+}
+
+export const isUser = () => {
+
+    return getRole() === "user";
+}
+
+export const getUserName = () => {
+    
+    let decodedToken = getDecodedToken();
+    if (!decodedToken) {
+        return;
+    }
+
+    return decodedToken.sub;
+}
+
+export const getDecodedToken = () => {
+    var jwtDecoder = require('jwt-decode');
+    const token = localStorage.getItem('jwt');
+
+    if (!token) {
+        return false;
+    }
+    return jwtDecoder(token);
 }
