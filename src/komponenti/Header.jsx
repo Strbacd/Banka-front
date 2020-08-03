@@ -9,7 +9,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            korisnickoIme: '',
             submitted: false
         };
         this.handleChange = this.handleChange.bind(this);
@@ -25,8 +25,8 @@ class Header extends React.Component {
         e.preventDefault();
     
         this.setState({ submitted: true });
-        const { username } = this.state;
-        if (username) {
+        const { korisnickoIme: korisnickoIme } = this.state;
+        if (korisnickoIme) {
             this.login();
         } else {
             this.setState({ submitted: false });
@@ -34,13 +34,13 @@ class Header extends React.Component {
     }
     
     login() {
-        const { username } = this.state;
+        const { korisnickoIme: korisnickoIme } = this.state;
     
         const requestOptions = {
             method: 'GET'
         };
     
-        fetch(`${serviceConfig.baseURL}/daj-token?name=${username}&admin=true`, requestOptions)
+        fetch(`${serviceConfig.baseURL}/daj-token?korisnickoIme=${korisnickoIme}`, requestOptions)
             .then(response => {
               if (!response.ok) {
                 return Promise.reject(response);
@@ -48,20 +48,25 @@ class Header extends React.Component {
             return response.json();
             })
             .then(data => {
-              NotificationManager.success('Successfuly signed in!');
+              NotificationManager.success('Successfully signed in!');
               if (data.token) {
                 localStorage.setItem("jwt", data.token);
                 }
             })
             .catch(response => {
-                NotificationManager.error(response.message || response.statusText);
+                response.text()
+                    .then(text => {
+                        let error = JSON.parse(text);
+                        console.log(error.porukaGreske);
+                        NotificationManager.error(error.porukaGreske);
+                    })
                 this.setState({ submitted: false });
             });
         }
     
 
     render() {
-        const {username} = this.state;
+        const {korisnickoIme: korisnickoIme} = this.state;
         return (
             <div>
             <Navbar bg="dark" expand="lg">
@@ -73,12 +78,12 @@ class Header extends React.Component {
                 <Nav className="mr-auto text-white" >
               </Nav>
               <Form inline onSubmit={this.handleSubmit}>
-                <FormControl type="text" placeholder="Username"
-                  id="username"
-                  value={username}
+                <FormControl type="text" placeholder="Korisnicko Ime"
+                  id="korisnickoIme"
+                  value={korisnickoIme}
                   onChange={this.handleChange}
                   className="mr-sm-2" />
-                <Button type="submit" variant="outline-success" className="mr-1">Log In</Button>
+                <Button type="submit" variant="outline-success">Log In</Button>
               </Form>
             </Navbar.Collapse>
 

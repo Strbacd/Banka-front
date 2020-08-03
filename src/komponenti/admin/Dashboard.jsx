@@ -18,7 +18,7 @@ import NovoPlacanje from "../user/NovoPlacanje";
 
 // komponente viseg reda
 import {AdminskaRuta} from '../../ProveraAutentikacije/adminskaRuta';
-import {korisnickaRuta} from '../../ProveraAutentikacije/korisnickaRuta';
+import {KorisnickaRuta} from '../../ProveraAutentikacije/korisnickaRuta';
 import {proveraRole} from '../pomocni fajlovi/proveraRole';
 
 class Dashboard extends React.Component {
@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
                         <AdminskaRuta path="/dashboard/izmenakorisnika" component={IzmenaKorisnika}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/SveValute" component={PrikaziSveValute}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/NovaValuta" component={NovaValuta}></AdminskaRuta>
-                        <korisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></korisnickaRuta>
+                        <KorisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></KorisnickaRuta>
                     </Switch>
                 </Col>
             </Row>

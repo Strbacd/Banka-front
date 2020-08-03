@@ -18,6 +18,13 @@ export const isAdmin = () => {
     return getRole() === "admin";
 }
 
+export const getTokenExp = () => {
+    let token = getDecodedToken();
+    if(token){
+        return token.exp;
+    }
+ }
+
 export const isUser = () => {
 
     return getRole() === "user";
