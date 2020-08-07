@@ -99,10 +99,14 @@ class NovaValuta extends React.Component {
             NotificationManager.success('Valuta je uspesno dodata');
             this.props.history.push('SveValute');
         })
-        .catch(response => {
-            console.log(response);
-            NotificationManager.error(response.porukaGreske);
-            this.setState({uneto: false})
+        .catch(odgovor => {
+            odgovor.text()
+            .then(text => {
+                let error = JSON.parse(text);
+                console.log(error.porukaGreske);
+                NotificationManager.error(error.porukaGreske);
+            })
+            this.setState({uneto: false});
         });
     }
 

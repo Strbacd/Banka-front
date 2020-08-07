@@ -8,11 +8,12 @@ class NovoPlacanje extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            racunId: '',
             nazivPrimaoca: '',
-            brojRacunaPrimaoca: 0,
-            modelPlacanja: 0,
-            pozivNaBroj: 0,
-            iznos: 0,
+            brojRacunaPrimaoca: '',
+            modelPlacanja: '',
+            pozivNaBroj: '',
+            iznos: '',
             nazivPrimaocaError: '',
             brojRacunaPrimaocaError: '',
             iznosError: '',
@@ -34,7 +35,7 @@ class NovoPlacanje extends React.Component {
 
         this.setState({uneto: true});
         const {nazivPrimaoca, brojRacunaPrimaoca, modelPlacanja, pozivNaBroj, iznos} = this.state;
-        if(nazivPrimaoca && brojRacunaPrimaoca && modelPlacanja && pozivNaBroj && iznos) {
+        if(nazivPrimaoca && brojRacunaPrimaoca && iznos) {
             this.dodajPlacanje();
         }
         else
@@ -120,7 +121,12 @@ class NovoPlacanje extends React.Component {
                     this.props.history.push(/*nazad na placanja*/);
                 })
                 .catch(odgovor => {
-                    NotificationManager.error(odgovor.message);
+                    odgovor.text()
+                    .then(text => {
+                        let error = JSON.parse(text);
+                        console.log(error.porukaGreske);
+                        NotificationManager.error(error.porukaGreske);
+                    })
                     this.setState({uneto: false})
                 })
         }
@@ -141,6 +147,7 @@ class NovoPlacanje extends React.Component {
                                         type="text"
                                         placeholder="Naziv Primaoca"
                                         value={nazivPrimaoca}
+                                        onChange={this.handleChange}
                                         className="add-new-form"
                                         />
                                     <FormText className="text-danger">{nazivPrimaocaError}</FormText>
@@ -152,6 +159,7 @@ class NovoPlacanje extends React.Component {
                                         type="long"
                                         placeholder="Broj Racuna Primaoca"
                                         value={brojRacunaPrimaoca}
+                                        onChange={this.handleChange}
                                         className="add-new-form"
                                         />
                                     <FormText className="text-danger">{brojRacunaPrimaocaError}</FormText>
@@ -163,6 +171,7 @@ class NovoPlacanje extends React.Component {
                                         type="int"
                                         placeholder="Model"
                                         value={modelPlacanja}
+                                        onChange={this.handleChange}
                                         className="add-new-form"
                                         />
                                 </FormGroup>
@@ -173,6 +182,7 @@ class NovoPlacanje extends React.Component {
                                         type="long"
                                         placeholder="Poziv na broj"
                                         value={pozivNaBroj}
+                                        onChange={this.handleChange}
                                         className="add-new-form"
                                         />
                                 </FormGroup>
@@ -183,11 +193,12 @@ class NovoPlacanje extends React.Component {
                                         type="decimal"
                                         placeholder="Iznos"
                                         value={iznos}
+                                        onChange={this.handleChange}
                                         className="add-new-form"
                                         />
                                     <FormText className="text-danger">{iznosError}</FormText>
                                 </FormGroup>
-                                <Button type="submit" disabled={uneto || !spremnoZaUnos} block>Dodaj</Button>
+                                <Button type="submit" disabled={uneto || !spremnoZaUnos} block>Plati</Button>
 
                             </form>
                     </Col>

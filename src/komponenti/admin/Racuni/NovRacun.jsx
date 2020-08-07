@@ -37,10 +37,10 @@ class NovRacun extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        this.setState({uneto: true});
         const {korisnikId, valutaId} = this.state;
         if (korisnikId && valutaId) {
             this.dodajRacun();
+            this.setState({uneto: true});
         }
         else
         {
@@ -96,8 +96,13 @@ class NovRacun extends React.Component {
                 this.props.history.push('SviRacuni');
             })
             .catch(odgovor => {
-                NotificationManager.error(odgovor.message);
-                this.setState({ uneto: false})
+                odgovor.text()
+                    .then(text => {
+                        let error = JSON.parse(text);
+                        console.log(error.porukaGreske);
+                        NotificationManager.error(error.porukaGreske);
+                    })
+                    this.setState({uneto: false});
             });
     }
 
@@ -121,8 +126,12 @@ class NovRacun extends React.Component {
             }
         })
         .catch(odgovor => {
-            NotificationManager.error(odgovor.porukaGreske || odgovor.statusKod);
-            this.setState({uneto: false});
+            odgovor.text()
+            .then(text => {
+                let error = JSON.parse(text);
+                console.log(error.porukaGreske);
+                NotificationManager.error(error.porukaGreske);
+            })
         });
     }
 

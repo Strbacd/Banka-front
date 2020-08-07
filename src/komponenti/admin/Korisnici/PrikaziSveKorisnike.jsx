@@ -75,7 +75,7 @@ class PrikaziSveKorisnike extends React.Component {
     }
 
     handleClick() {
-        let parametarPretrage = this.state.pretraga;
+        const { pretraga } = this.state;
 
         const parametriZahteva = {
             method: 'GET',
@@ -84,13 +84,10 @@ class PrikaziSveKorisnike extends React.Component {
         };
 
         this.setState({isLoading: true});
-        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/DajPoKorisnickomImenu/${parametarPretrage}`, parametriZahteva)
+        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/DajPoKorisnickomImenu?ime=${pretraga}`, parametriZahteva)
         .then(odgovor => {
-            if(!odgovor.ok) {
+            if (!odgovor.ok) {
                 return Promise.reject(odgovor);
-            } else if (odgovor === null)
-            {
-                return null;
             }
             return odgovor.json();
         })
@@ -98,12 +95,20 @@ class PrikaziSveKorisnike extends React.Component {
             if(data) {
                 let dataArray = new Array;
                 dataArray[0] = data;
-                this.setState({korisnici: dataArray[0], isLoading: false});
+                this.setState({korisnici: dataArray, isLoading: false});
+            }
+            else
+            {
+                this.setState({isLoading: false});
             }
         })
         .catch(odgovor => {
-            NotificationManager.error(odgovor.message || odgovor.statusText);
-            this.setState({isLoading: false});
+            odgovor.text()
+            .then(text => {
+                let error = JSON.parse(text);
+                console.log(error.porukaGreske);
+                NotificationManager.error(error.porukaGreske);
+            })
         })
 
     }

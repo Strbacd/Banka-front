@@ -10,10 +10,12 @@ class Header extends React.Component {
         super(props);
         this.state = {
             korisnickoIme: '',
-            submitted: false
+            submitted: false,
+            userLoggedIn: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.isUserLoggedIn = this.isUserLoggedIn.bind(this);
     }
 
     handleChange(e) {
@@ -31,6 +33,26 @@ class Header extends React.Component {
         } else {
             this.setState({ submitted: false });
         }
+    }
+
+    isUserLoggedIn () {
+        if (localStorage.getItem("jwt"))
+        {
+            return true;
+        }
+            return false;
+        }
+
+        showjwt() {
+            alert(localStorage.getItem("jwt"));
+        }
+
+    logout(e) {
+        e.preventDefault();
+        localStorage.removeItem("jwt"); 
+        NotificationManager.success('Successfully signed out!');
+        this.setState({userLoggedIn: false});
+        window.location.reload(false);
     }
     
     login() {
@@ -52,9 +74,11 @@ class Header extends React.Component {
               if (data.token) {
                 localStorage.setItem("jwt", data.token);
                 }
+                this.setState({userLoggedIn: true});
+                window.location.reload(false);
             })
-            .catch(response => {
-                response.text()
+            .catch(odgovor => {
+                odgovor.text()
                     .then(text => {
                         let error = JSON.parse(text);
                         console.log(error.porukaGreske);
@@ -77,14 +101,17 @@ class Header extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav" className="text-white">
                 <Nav className="mr-auto text-white" >
               </Nav>
-              <Form inline onSubmit={this.handleSubmit}>
+              {!this.isUserLoggedIn() && <Form inline onSubmit={this.handleSubmit}>
                 <FormControl type="text" placeholder="Korisnicko Ime"
                   id="korisnickoIme"
                   value={korisnickoIme}
                   onChange={this.handleChange}
                   className="mr-sm-2" />
-                <Button type="submit" variant="outline-success">Log In</Button>
-              </Form>
+                <Button type="submit" variant="outline-success" >Log In</Button>
+              </Form>}
+              <Form inline onSubmit={(e) => this.logout(e)}>
+            {this.isUserLoggedIn() && <Button type="submit" variant="outline-danger" id="logout">Logout</Button>}
+          </Form>
             </Navbar.Collapse>
 
             </Navbar>

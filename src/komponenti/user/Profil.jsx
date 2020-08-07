@@ -63,7 +63,12 @@ class Profil extends React.Component {
                 }
             })
             .catch(odgovor => {
-                NotificationManager.error(odgovor.message || odgovor.statusText);
+                odgovor.text()
+                    .then(text => {
+                        let error = JSON.parse(text);
+                        console.log(error.porukaGreske);
+                        NotificationManager.error(error.porukaGreske);
+                    })
             })
         }
 }

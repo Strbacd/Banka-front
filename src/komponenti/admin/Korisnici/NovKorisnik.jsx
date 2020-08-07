@@ -33,10 +33,10 @@ class NovKorisnik extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        this.setState({uneto: true});
         const {korisnickoIme, ime, prezime, adresa} = this.state;
         if (korisnickoIme && ime && prezime && adresa) {
             this.dodajKorisnika();
+            this.setState({uneto: true});
         }
         else
         {
@@ -135,8 +135,13 @@ class NovKorisnik extends React.Component {
                 this.props.history.push('SviKorisnici');
             })
             .catch(odgovor => {
-                NotificationManager.error(odgovor.message);
-                this.setState({uneto: false})
+                odgovor.text()
+                    .then(text => {
+                        let error = JSON.parse(text);
+                        console.log(error.porukaGreske);
+                        NotificationManager.error(error.porukaGreske);
+                    })
+                    this.setState({uneto: false});
             });
 
 
