@@ -48,7 +48,7 @@ export const proveraRole = () => {
                     <span className="fa-2x text-white"><FontAwesomeIcon className="text-white mr-2 fa-1x" icon={faUsers}/>Korisnici</span>
                 </Row> */}
                 <Row className="justify-content-center mt-2">
-                    <NavLink activeClassName="active-link" to='/dashboard/NovoPlacanje'><FontAwesomeIcon className='text-primary mr-1' icon={faBong}/>Novo Placanje</NavLink>
+                    <NavLink activeClassName="active-link" to='/dashboard/NovoPlacanjeIzborRacuna'><FontAwesomeIcon className='text-primary mr-1' icon={faBong}/>Novo Placanje</NavLink>
                 </Row>
 
             </Col>

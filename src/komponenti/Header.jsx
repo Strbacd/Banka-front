@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
 import { serviceConfig } from '../appSettings';
 import { NotificationManager } from 'react-notifications';
+import { isUserLoggedIn } from './pomocni fajlovi/Autentikacija';
 
 
 class Header extends React.Component {
@@ -15,7 +16,6 @@ class Header extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.isUserLoggedIn = this.isUserLoggedIn.bind(this);
     }
 
     handleChange(e) {
@@ -34,18 +34,6 @@ class Header extends React.Component {
             this.setState({ submitted: false });
         }
     }
-
-    isUserLoggedIn () {
-        if (localStorage.getItem("jwt"))
-        {
-            return true;
-        }
-            return false;
-        }
-
-        showjwt() {
-            alert(localStorage.getItem("jwt"));
-        }
 
     logout(e) {
         e.preventDefault();
@@ -101,7 +89,7 @@ class Header extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav" className="text-white">
                 <Nav className="mr-auto text-white" >
               </Nav>
-              {!this.isUserLoggedIn() && <Form inline onSubmit={this.handleSubmit}>
+              {!isUserLoggedIn() && <Form inline onSubmit={this.handleSubmit}>
                 <FormControl type="text" placeholder="Korisnicko Ime"
                   id="korisnickoIme"
                   value={korisnickoIme}
@@ -110,7 +98,7 @@ class Header extends React.Component {
                 <Button type="submit" variant="outline-success" >Log In</Button>
               </Form>}
               <Form inline onSubmit={(e) => this.logout(e)}>
-            {this.isUserLoggedIn() && <Button type="submit" variant="outline-danger" id="logout">Logout</Button>}
+            {isUserLoggedIn() && <Button type="submit" variant="outline-danger" id="logout">Logout</Button>}
           </Form>
             </Navbar.Collapse>
 

@@ -75,7 +75,7 @@ class NovoPlacanje extends React.Component {
             }
             }
 
-            else if (id === "iznost") {
+            else if (id === "iznos") {
                 if (value === 0) {
                     this.setState({
                         iznosError: "Neophodno je uneti iznos.",
@@ -94,22 +94,24 @@ class NovoPlacanje extends React.Component {
         dodajPlacanje() {
             const {nazivPrimaoca, brojRacunaPrimaoca, modelPlacanja, pozivNaBroj, iznos} = this.state;
 
+            let urlElements = window.location.href.split('/');
+
             const data = {
                 nazivPrimaoca: nazivPrimaoca,
-                brojRacunaPrimaoca: brojRacunaPrimaoca,
-                modelPlacanja: modelPlacanja,
-                pozivNaBroj: pozivNaBroj,
-                iznos: iznos
+                brojRacunaPrimaoca: +brojRacunaPrimaoca,
+                modelPlacanja: +modelPlacanja,
+                pozivNaBroj: +pozivNaBroj,
+                iznos: +iznos
             };
 
             const parametriZahteva = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + localStorage.getItem('jwt')},
-                        body: JSON.stringify(data)
+                body: JSON.stringify(data)
             };
 
-            fetch(`${serviceConfig.baseURL}/api/KontrolerPlacanja/NovoPlacanje`, parametriZahteva)
+            fetch(`${serviceConfig.baseURL}/api/KontrolerPlacanja/NovoPlacanje/${urlElements[5]}`, parametriZahteva)
                 .then(odgovor => {
                     if(!odgovor.ok) {
                         return Promise.reject(odgovor);
@@ -118,13 +120,12 @@ class NovoPlacanje extends React.Component {
                 })
                 .then(odgovor => {
                     NotificationManager.success('Placanje izvrseno uspesno');
-                    this.props.history.push(/*nazad na placanja*/);
+                   // this.props.history.push(/*nazad na placanja*/);
                 })
                 .catch(odgovor => {
                     odgovor.text()
                     .then(text => {
                         let error = JSON.parse(text);
-                        console.log(error.porukaGreske);
                         NotificationManager.error(error.porukaGreske);
                     })
                     this.setState({uneto: false})

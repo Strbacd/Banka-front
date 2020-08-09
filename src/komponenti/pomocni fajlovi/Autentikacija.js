@@ -18,6 +18,14 @@ export const isAdmin = () => {
     return getRole() === "admin";
 }
 
+export const isUserLoggedIn = () => {
+    if (localStorage.getItem("jwt"))
+    {
+        return true;
+    }
+        return false;
+    }
+
 export const getTokenExp = () => {
     let token = getDecodedToken();
     if(token){
@@ -33,11 +41,9 @@ export const isUser = () => {
 export const getUserName = () => {
     
     let decodedToken = getDecodedToken();
-    if (!decodedToken) {
-        return;
+    if (decodedToken) {
+        return decodedToken.sub;
     }
-
-    return decodedToken.sub;
 }
 
 export const getDecodedToken = () => {

@@ -14,6 +14,7 @@ import NovaValuta from "./Valute/NovaValuta"
 import IzmenaKorisnika from "./Korisnici/IzmenaKorisnika";
 
 // Korisnicke Akcije
+import NovoPlacanjeIzborRacuna from "../user/NovoPlacanjeIzborRacuna";
 import NovoPlacanje from "../user/NovoPlacanje";
 
 // komponente viseg reda
@@ -35,6 +36,7 @@ class Dashboard extends React.Component {
                         <AdminskaRuta path="/dashboard/izmenakorisnika" component={IzmenaKorisnika}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/SveValute" component={PrikaziSveValute}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/NovaValuta" component={NovaValuta}></AdminskaRuta>
+                        <KorisnickaRuta path="/dashboard/NovoPlacanjeIzborRacuna" component={NovoPlacanjeIzborRacuna}></KorisnickaRuta>
                         <KorisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></KorisnickaRuta>
                     </Switch>
                 </Col>
