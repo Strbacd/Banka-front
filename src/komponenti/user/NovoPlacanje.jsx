@@ -120,7 +120,7 @@ class NovoPlacanje extends React.Component {
                 })
                 .then(odgovor => {
                     NotificationManager.success('Placanje izvrseno uspesno');
-                   // this.props.history.push(/*nazad na placanja*/);
+                    this.props.history.push("/dashboard/profil");
                 })
                 .catch(odgovor => {
                     odgovor.text()

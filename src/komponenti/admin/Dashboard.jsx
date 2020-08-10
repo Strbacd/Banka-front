@@ -12,10 +12,12 @@ import NovRacun from "./Racuni/NovRacun";
 import NovKorisnik from "./Korisnici/NovKorisnik";
 import NovaValuta from "./Valute/NovaValuta"
 import IzmenaKorisnika from "./Korisnici/IzmenaKorisnika";
+import IzmenaValute from "./Valute/IzmenaValute"
 
 // Korisnicke Akcije
 import NovoPlacanjeIzborRacuna from "../user/NovoPlacanjeIzborRacuna";
 import NovoPlacanje from "../user/NovoPlacanje";
+import SvaPlacanjaPoRacunu from "../user/SvaPlacanjaPoRacunu";
 
 // komponente viseg reda
 import {AdminskaRuta} from '../../ProveraAutentikacije/adminskaRuta';
@@ -37,9 +39,11 @@ class Dashboard extends React.Component {
                         <AdminskaRuta path="/dashboard/izmenakorisnika" component={IzmenaKorisnika}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/SveValute" component={PrikaziSveValute}></AdminskaRuta>
                         <AdminskaRuta path="/dashboard/NovaValuta" component={NovaValuta}></AdminskaRuta>
+                        <AdminskaRuta path="/dashboard/IzmenaValute" component={IzmenaValute}></AdminskaRuta>
                         <KorisnickaRuta path="/dashboard/NovoPlacanjeIzborRacuna" component={NovoPlacanjeIzborRacuna}></KorisnickaRuta>
                         <KorisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></KorisnickaRuta>
                         <KorisnickaRuta path="/dashboard/Profil" component={Profil}></KorisnickaRuta>
+                        <KorisnickaRuta path="/dashboard/SvaPlacanjaPoRacunu" component={SvaPlacanjaPoRacunu}></KorisnickaRuta>
                     </Switch>
                 </Col>
             </Row>

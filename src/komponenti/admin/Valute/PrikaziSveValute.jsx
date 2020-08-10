@@ -58,11 +58,14 @@ class PrikaziSveValute extends React.Component {
             return <tr key = {valuta.idValute}>
                 <td>{valuta.nazivValute}</td>
                 <td>{valuta.odnosPremaDinaru}</td>
-                <td width="5%" className="text-center cursor-pointer" onClick={() => this.izmenaValute(valuta.idValute)}><FontAwesomeIcon className="text-info mr-2 fa-1x" icon={faEdit}/></td>
+                <td width="5%" className="text-center cursor-pointer" onClick={() => this.izmenaValute(valuta)}><FontAwesomeIcon className="text-info mr-2 fa-1x" icon={faEdit}/></td>
             </tr>
         })
     }
-
+    izmenaValute(valuta) {
+        this.props.history.push({pathname: `IzmenaValute/${valuta.idValute}`,
+                                state: {valuta: valuta}});
+    }
 
     render() {
         const {isLoading} = this.state;

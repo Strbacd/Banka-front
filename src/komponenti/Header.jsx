@@ -97,7 +97,7 @@ class Header extends React.Component {
                   className="mr-sm-2" />
                 <Button type="submit" variant="outline-success" >Log In</Button>
               </Form>}
-              <Link className="text-decoration-none" to='dashboard/Profil'>
+              <Link className="text-decoration-none" to="/dashboard/Profil">
             {isUserLoggedIn() && (
                 <Button style={{marginRight: '12px'}} type="submit" id="profil">{getUserName()}</Button>
             )}
