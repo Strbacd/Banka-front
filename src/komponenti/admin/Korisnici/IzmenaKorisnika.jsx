@@ -73,7 +73,7 @@ class IzmenaKorisnika extends React.Component {
                           'Authorization': 'Bearer ' + localStorage.getItem('jwt')}
         };
 
-        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/` + idKorisnika, parametriZahteva)
+        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/DajPoId?id=${idKorisnika}`, parametriZahteva)
             .then(odgovor => {
                 if (!odgovor.ok) {
                     return Promise.reject(odgovor);
@@ -93,9 +93,9 @@ class IzmenaKorisnika extends React.Component {
                 odgovor.text()
                     .then(text => {
                         let error = JSON.parse(text);
-                        console.log(error.porukaGreske);
                         NotificationManager.error(error.porukaGreske);
                     })
+                    this.setState({uneto: false});
             });
     }
 
@@ -114,7 +114,7 @@ class IzmenaKorisnika extends React.Component {
             body: JSON.stringify(podaciAzuriranogKorisnika)
         };
 
-        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/${idKorisnika}`, parametriZahteva)
+        fetch(`${serviceConfig.baseURL}/api/KontrolerKorisnika/IzmeniKorisnika?id=${idKorisnika}`, parametriZahteva)
             .then(odgovor => {
                 if(!odgovor.ok) {
                     return Promise.reject(odgovor);

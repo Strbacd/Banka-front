@@ -44,7 +44,7 @@ export const proveraRole = () => {
     {
         return (
             <Col lg={2} className="dashboard-navigation bg-dark">
-{/*                 <Row className="justify-content-center mt-2">
+{/*             <Row className="justify-content-center mt-2">
                     <span className="fa-2x text-white"><FontAwesomeIcon className="text-white mr-2 fa-1x" icon={faUsers}/>Korisnici</span>
                 </Row> */}
                 <Row className="justify-content-center mt-2">

@@ -46,13 +46,18 @@ class PrikaziSveKorisnike extends React.Component {
             }
         })
         .catch(odgovor => {
-            NotificationManager.error(odgovor.message || odgovor.statusText);
-            this.setState({isLoading: false});
+            odgovor.text()
+            .then(text => {
+                let error = JSON.parse(text);
+                console.log(error.porukaGreske);
+                NotificationManager.error(error.porukaGreske);
+            })
+            
         })
     }
 
     izmenaKorisnika(idKorisnika) {
-        this.props.history.push({pathname: `izmenakorisnika/${idKorisnika}`,
+        this.props.history.push({pathname: `IzmenaKorisnika/${idKorisnika}`,
                                 state: {idKorisnika: idKorisnika}});
     }
     popuniTabelu() {

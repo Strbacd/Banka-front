@@ -21,6 +21,7 @@ import NovoPlacanje from "../user/NovoPlacanje";
 import {AdminskaRuta} from '../../ProveraAutentikacije/adminskaRuta';
 import {KorisnickaRuta} from '../../ProveraAutentikacije/korisnickaRuta';
 import {proveraRole} from '../pomocni fajlovi/proveraRole';
+import Profil from "../user/Profil";
 
 class Dashboard extends React.Component {
     render() {
@@ -38,6 +39,7 @@ class Dashboard extends React.Component {
                         <AdminskaRuta path="/dashboard/NovaValuta" component={NovaValuta}></AdminskaRuta>
                         <KorisnickaRuta path="/dashboard/NovoPlacanjeIzborRacuna" component={NovoPlacanjeIzborRacuna}></KorisnickaRuta>
                         <KorisnickaRuta path="/dashboard/NovoPlacanje" component={NovoPlacanje}></KorisnickaRuta>
+                        <KorisnickaRuta path="/dashboard/Profil" component={Profil}></KorisnickaRuta>
                     </Switch>
                 </Col>
             </Row>

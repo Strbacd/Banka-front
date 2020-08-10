@@ -186,7 +186,7 @@ class NovRacun extends React.Component {
             <Container>
                 <Row>
                     <Col>
-                        <h1 className="form-header">Dodavanje deviznog racuna</h1>
+                        <h1 className="form-header">Dodavanje racuna</h1>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Typeahead 

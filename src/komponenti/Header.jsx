@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
 import { serviceConfig } from '../appSettings';
 import { NotificationManager } from 'react-notifications';
-import { isUserLoggedIn } from './pomocni fajlovi/Autentikacija';
+import { isUserLoggedIn, getUserName } from './pomocni fajlovi/Autentikacija';
 
 
 class Header extends React.Component {
@@ -97,8 +97,15 @@ class Header extends React.Component {
                   className="mr-sm-2" />
                 <Button type="submit" variant="outline-success" >Log In</Button>
               </Form>}
+              <Link className="text-decoration-none" to='dashboard/Profil'>
+            {isUserLoggedIn() && (
+                <Button style={{marginRight: '12px'}} type="submit" id="profil">{getUserName()}</Button>
+            )}
+            </Link>
               <Form inline onSubmit={(e) => this.logout(e)}>
-            {isUserLoggedIn() && <Button type="submit" variant="outline-danger" id="logout">Logout</Button>}
+            {isUserLoggedIn() && (
+            <Button type="submit" variant="outline-danger" id="logout">Logout</Button>
+            )}
           </Form>
             </Navbar.Collapse>
 

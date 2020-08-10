@@ -128,7 +128,7 @@ class NovKorisnik extends React.Component {
                 if(!odgovor.ok) {
                     return Promise.reject(odgovor);
                 }
-                return odgovor.statusText.length;
+                return odgovor.json();
             })
             .then(odgovor => {
                 NotificationManager.success('Korisnik je uspesno registrovan');

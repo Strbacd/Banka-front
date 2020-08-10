@@ -1,6 +1,8 @@
 import React from 'react';
 import {getUserName} from '../pomocni fajlovi/Autentikacija'
 import {serviceConfig} from '../../appSettings'
+import { withRouter } from 'react-router-dom';
+import { NotificationManager } from 'react-notifications';
 
 class Profil extends React.Component {
     constructor(props) {
@@ -71,4 +73,13 @@ class Profil extends React.Component {
                     })
             })
         }
+
+        render() {
+            return (
+                <h1>TEST TEST TEST</h1>
+
+            )
+        }
 }
+
+export default withRouter(Profil);
