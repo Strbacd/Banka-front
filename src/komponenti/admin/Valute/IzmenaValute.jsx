@@ -95,7 +95,7 @@ class IzmenaValute extends React.Component {
             <Container>
                 <Row>
                     <Col>
-                        <h1 className="form-header">Izmena korisnika</h1>
+                        <h1 className="form-header">Izmena valute</h1>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <FormControl
